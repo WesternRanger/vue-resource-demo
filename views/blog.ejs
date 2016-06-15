@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<
+<div class="content">
+    <div class="right">
+        <div class="about">
+            <h3>关于我</h3>
+            <p>
+                <b>西泊浪人</b>，立志成为一名屌屌的前端开发工程师，更是要成为一名全栈工程师。
+            </p>
+            <p>
+                前端之路漫漫，其修远兮。资历尚浅之吾，将上下而求索至地老天荒。
+            </p>
+        </div>
+        <div class="follow">
+            <h3>Follow me on</h3>
+            <ul>
+                <li><a href="http://weibo.com/WesternRanger">新浪微博</a></li>
+                <li><a href="http://blog.csdn.net/westernranger">CSDN博客</a></li>
+                <li><a href="https://github.com/WesternRanger">github</a></li>
+                <li><a href="http://western-ranger.com">个人主页</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="artBottom"></div>
+</div>
+<% include footer %>
+<script src="/component/jquery-3.0.0.min.js"></script>
+<script>
+    $.ajax({
+        url:'/comment',
+        type:'post',
+        dataType:'json',
+        data:{
+          id:1
+        },
+        success:function(rs){
+
+        }
+    })
+</script>
+</body>
+</html>

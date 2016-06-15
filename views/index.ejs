@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>confirm组件</title>
+    <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <style>
+        body{
+            margin:0;
+        }
+        .root-btn{
+            display: block;
+            margin:2rem auto 0;
+            width:1.5rem;
+            height:0.3rem;
+            font:700 0.18rem/0.3rem 'Microsoft YaHei';
+            outline: none;
+            border:1px solid #ff9da4;
+            border-radius: 3px;
+            background: #fff;
+            color:#ff9da4;
+            padding:0;
+            box-sizing:content-box;
+        }
+    </style>
+    <script src="/component/flex.js"></script>
+</head>
+<body v-bind:class="{'fullMask':isTrue}">
+<confirm v-if="flag" :canc="1" :sure='1' msg="hello kitty"></confirm>
+<button class="root-btn" v-on:click="clickHandler">
+    {{name}}
+</button>
+<div class="ajaxTest">
+    {{ajax_text}}
+</div>
+<ul>
+    <li v-for="item in items">
+        {{ item.message }}
+    </li>
+</ul>
+<script src="/component/index.js"></script>
+</body>
+</html>

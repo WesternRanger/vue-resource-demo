@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index'); // 首页
-var blog = require('./routes/blog'); // blog
+var vuecomp = require('./routes/vuecomp'); // blog
 var comment = require('./routes/comment'); // comment
 
 var app = express();
@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/blog', blog);
+app.use('/vuecomp', vuecomp);
 app.use('/comment', comment);
 
 // catch 404 and forward to error handler

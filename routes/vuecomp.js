@@ -6,7 +6,7 @@ var express = require('express'),
     db = require('./conn'); //先引入数据库链接
 
 router.get('/', function(req, resIndex) {
-    resIndex.render('blog', {
+    resIndex.render('vuecomp', {
         title: "从这里开始",
     });
 });

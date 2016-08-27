@@ -4,7 +4,8 @@
 module.exports = {
     // 入口文件
     entry: {
-        index:'./public/javascripts/index.js'
+        index:'./public/javascripts/index.js',
+        vuecomp:'./public/javascripts/vuecomp.js'
     },
     output: {
         path: __dirname, // 输出文件的保存路径

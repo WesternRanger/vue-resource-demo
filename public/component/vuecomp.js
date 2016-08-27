@@ -46,70 +46,68 @@
 
 	'use strict';
 	
-	/**
-	 * Created by WesternRanger on 16/6/14.
-	 */
-	var Vue = __webpack_require__(1),
-	    confirm = __webpack_require__(3),
-	    vueResource = __webpack_require__(15),
-	    // 获取网络数据
-	VueAsyncData = __webpack_require__(16);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Created by WesternRanger on 16/8/27.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 	
-	Vue.config.silent = true; // 取消所有vue日志跟警告
-	//Vue.config.debug = false;
-	Vue.use(vueResource);
-	Vue.use(VueAsyncData);
 	
-	var $vm = new Vue({
-	    el: 'body', // 依附对象
-	    data: {
-	        name: '点击',
-	        flag: false, //控制弹框出现
-	        items: 'demoArr',
-	        isTrue: false
-	    },
-	    ready: function ready() {
-	        this.$http.post('/comment', { id: 1 }, {
-	            headers: {
-	                "X-Requested-With": "XMLHttpRequest"
-	            },
-	            emulateJSON: true
-	        }).then(function (response) {
-	            var data = response.data;
-	            this.items = data.demoArr;
-	        }, function (response) {
-	            // handle error
-	        });
-	    },
-	    components: { //依赖组件
-	        'confirm': confirm
-	    },
-	    events: { //接受来自组件的消息
-	        'confirm-msg': function confirmMsg(msg) {
-	            //关闭弹框开关-false
-	            this.flag = msg.closeConfirm;
-	            //背景滚动锁去掉
-	            this.isTrue = false;
+	var _vue = __webpack_require__(1);
 	
-	            if (msg.cancelCallback) {
-	                //点击取消
-	                console.log(4444);
-	            }
-	            if (msg.sureCallback) {
-	                //点击确定
-	                msg.sureCallback();
-	            }
-	        }
-	    },
-	    methods: { //点击事件
-	        clickHandler: function clickHandler(e) {
-	            //防止背景滚动
-	            this.isTrue = true;
-	            //弹窗开关打开
-	            this.flag = true;
-	        }
+	var _vue2 = _interopRequireDefault(_vue);
+	
+	var _confirm_v = __webpack_require__(18);
+	
+	var _confirm_v2 = _interopRequireDefault(_confirm_v);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var VueComp = function () {
+	    function VueComp() {
+	        _classCallCheck(this, VueComp);
+	
+	        this.vueInit();
 	    }
-	});
+	
+	    _createClass(VueComp, [{
+	        key: 'vueInit',
+	        value: function vueInit(rs) {
+	            var $vm = new _vue2.default({
+	                el: 'body',
+	                components: {
+	                    vue_confirm: _confirm_v2.default
+	                },
+	                data: {
+	                    name: 'chenqi',
+	                    //修改组件默认属性
+	                    confirm_info: {
+	                        confirm_show: true,
+	                        confirm_name: 'hello world!'
+	                    }
+	                }
+	            });
+	            return $vm;
+	        }
+	    }, {
+	        key: 'dataInit',
+	        value: function dataInit() {
+	            $.ajax({
+	                url: '/comment',
+	                type: 'post',
+	                dataType: 'json',
+	                data: {
+	                    id: 1
+	                },
+	                success: function success(rs) {}
+	            });
+	        }
+	    }]);
+	
+	    return VueComp;
+	}();
+	
+	new VueComp();
 
 /***/ },
 /* 1 */
@@ -2980,75 +2978,9 @@
 	};
 
 /***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__webpack_require__(4)
-	__vue_script__ = __webpack_require__(8)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] public/javascripts/confirm.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(14)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), false)
-	  if (!hotAPI.compatible) return
-	  var id = "./confirm.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(5);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./confirm.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./confirm.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(6)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "\n.fullMask{\n    height:100%;\n    overflow:hidden;\n}\n.ncf-confirm{\n    width:4.5rem;\n    text-align: center;\n    border-radius: 5px;\n    position:fixed;\n    left:50%;\n    top:50%;\n    transform:translate(-50%,-50%);\n    -webkit-transform: translate(-50%,-50%);\n    z-index:10001;\n    background: #fff;\n    font-size:0.3rem;\n}\n.conf-cont {\n    width:3.9rem;\n    margin:0.3rem;\n    max-height:3rem;\n    overflow-y: auto;\n}\n.conf-btn-grp{\n    width:100%;\n    display: -webkit-box; /* Chrome 4+, Safari 3.1, iOS Safari 3.2+ */ /* Firefox 17- */ /* Chrome 21+, Safari 6.1+, iOS Safari 7+, Opera 15/16 */\n    display: -moz-flex; /* Firefox 18+ */\n    display: -ms-flexbox;\n    display: flex;\n    border-top:#e5e5e5 solid 1px;\n}\n.conf-cancel{\n    -webkit-box-flex:1;\n    -moz-flex: 1;\n    -ms-flex:1;\n        flex:1;\n    padding:0.15rem 0;\n    border-right:1px solid #e5e5e5;\n}\n.conf-sure{\n    -webkit-box-flex:1;\n    -moz-flex: 1;\n    -ms-flex:1;\n        flex:1;\n    padding:0.15rem 0;\n}\n.mask{\n    position: fixed;\n    top:0;\n    right:0;\n    bottom:0;\n    left:0;\n    background:rgba(0,0,0,0.5);\n    z-index:10000;\n}\n", "", {"version":3,"sources":["/./public/javascripts/confirm.vue?5d5b92c7"],"names":[],"mappings":";AACA;IACA,YAAA;IACA,gBAAA;CACA;AACA;IACA,aAAA;IACA,mBAAA;IACA,mBAAA;IACA,eAAA;IACA,SAAA;IACA,QAAA;IACA,+BAAA;IACA,wCAAA;IACA,cAAA;IACA,iBAAA;IACA,iBAAA;CACA;AACA;IACA,aAAA;IACA,cAAA;IACA,gBAAA;IACA,iBAAA;CACA;AACA;IACA,WAAA;IACA,qBAAA,CAAA,4CAAA,CACA,iBAAA,CACA,yDAAA;IACA,mBAAA,CAAA,iBAAA;IACA,qBAAA;IAAA,cAAA;IACA,6BAAA;CACA;AACA;IACA,mBAAA;IAGA,aAAA;IACA,WAAA;QAAA,OAAA;IACA,kBAAA;IACA,+BAAA;CACA;AACA;IACA,mBAAA;IAGA,aAAA;IACA,WAAA;QAAA,OAAA;IACA,kBAAA;CACA;AACA;IACA,gBAAA;IACA,MAAA;IACA,QAAA;IACA,SAAA;IACA,OAAA;IACA,2BAAA;IACA,cAAA;CACA","file":"confirm.vue","sourcesContent":["<style>\n    .fullMask{\n        height:100%;\n        overflow:hidden;\n    }\n    .ncf-confirm{\n        width:4.5rem;\n        text-align: center;\n        border-radius: 5px;\n        position:fixed;\n        left:50%;\n        top:50%;\n        transform:translate(-50%,-50%);\n        -webkit-transform: translate(-50%,-50%);\n        z-index:10001;\n        background: #fff;\n        font-size:0.3rem;\n    }\n    .conf-cont {\n        width:3.9rem;\n        margin:0.3rem;\n        max-height:3rem;\n        overflow-y: auto;\n    }\n    .conf-btn-grp{\n        width:100%;\n        display: -webkit-box; /* Chrome 4+, Safari 3.1, iOS Safari 3.2+ */\n        display: -moz-box; /* Firefox 17- */\n        display: -webkit-flex; /* Chrome 21+, Safari 6.1+, iOS Safari 7+, Opera 15/16 */\n        display: -moz-flex; /* Firefox 18+ */\n        display: flex;\n        border-top:#e5e5e5 solid 1px;\n    }\n    .conf-cancel{\n        -webkit-box-flex:1;\n        -moz-box-flex:1;\n        -webkit-flex: 1;\n        -moz-flex: 1;\n        flex:1;\n        padding:0.15rem 0;\n        border-right:1px solid #e5e5e5;\n    }\n    .conf-sure{\n        -webkit-box-flex:1;\n        -moz-box-flex:1;\n        -webkit-flex: 1;\n        -moz-flex: 1;\n        flex:1;\n        padding:0.15rem 0;\n    }\n    .mask{\n        position: fixed;\n        top:0;\n        right:0;\n        bottom:0;\n        left:0;\n        background:rgba(0,0,0,0.5);\n        z-index:10000;\n    }\n</style>\n<template>\n    <div class=\"ncf-confirm\">\n        <div class=\"conf-cont\">\n            <vue_demo></vue_demo>\n        </div>\n        <div class=\"conf-btn-grp\">\n            <div class=\"conf-cancel\" @click=\"doCancel\" v-if=\"canc\">取消</div>\n            <div class=\"conf-sure\" @click=\"doSure\" v-if=\"sure\">确定</div>\n        </div>\n    </div>\n    <div class=\"mask\" @click=\"clickHandler\"></div>\n</template>\n<script>\n    var diyBox = require('./vue_demo.vue');//定义弹框内容\n\n    let maskMsg = {\n            closeConfirm:false,\n        },\n        cancelMsg = {\n            closeConfirm:false,\n            cancelCallback:function(){\n                console.log('cancel');\n            }\n        },\n        sureMsg = {\n            closeConfirm:false,\n            sureCallback:function(){\n                console.log('sure');\n            }\n        };\n\n    module.exports ={\n        data:function(){\n            return {\n                msg:'hello world',\n                canc:1,\n                sure:0,\n            };\n        },\n        components:{\n            vue_demo:diyBox//填充box\n        },\n        props:['canc','sure','msg'],//获取赋值属性\n        methods:{\n            clickHandler:function(e){//隐藏\n                this.$dispatch('confirm-msg', maskMsg);\n            },\n            doCancel:function(){//点击取消\n                this.$dispatch('confirm-msg', cancelMsg);\n            },\n            doSure:function(){//点击确定\n                this.$dispatch('confirm-msg', sureMsg);\n            }\n        }\n    }\n\n</script>"],"sourceRoot":"webpack://"}]);
-	
-	// exports
-
-
-/***/ },
+/* 3 */,
+/* 4 */,
+/* 5 */,
 /* 6 */
 /***/ function(module, exports) {
 
@@ -3326,65 +3258,27 @@
 
 
 /***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var diyBox = __webpack_require__(9);
-	
-	var maskMsg = {
-	    closeConfirm: false
-	},
-	    cancelMsg = {
-	    closeConfirm: false,
-	    cancelCallback: function cancelCallback() {
-	        console.log('cancel');
-	    }
-	},
-	    sureMsg = {
-	    closeConfirm: false,
-	    sureCallback: function sureCallback() {
-	        console.log('sure');
-	    }
-	};
-	
-	module.exports = {
-	    data: function data() {
-	        return {
-	            msg: 'hello world',
-	            canc: 1,
-	            sure: 0
-	        };
-	    },
-	    components: {
-	        vue_demo: diyBox },
-	    props: ['canc', 'sure', 'msg'],
-	    methods: {
-	        clickHandler: function clickHandler(e) {
-	            this.$dispatch('confirm-msg', maskMsg);
-	        },
-	        doCancel: function doCancel() {
-	            this.$dispatch('confirm-msg', cancelMsg);
-	        },
-	        doSure: function doSure() {
-	            this.$dispatch('confirm-msg', sureMsg);
-	        }
-	    }
-	};
-
-/***/ },
-/* 9 */
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(10)
-	__vue_script__ = __webpack_require__(12)
+	__webpack_require__(19)
+	__vue_script__ = __webpack_require__(21)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] public/javascripts/vue_demo.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(13)
+	  console.warn("[vue-loader] public/javascripts/confirm_v2.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(22)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -3394,7 +3288,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "./vue_demo.vue"
+	  var id = "./confirm_v2.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -3403,13 +3297,13 @@
 	})()}
 
 /***/ },
-/* 10 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(11);
+	var content = __webpack_require__(20);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(7)(content, {});
@@ -3418,8 +3312,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./vue_demo.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./vue_demo.vue");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./confirm_v2.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js?sourceMap!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./confirm_v2.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -3429,7 +3323,7 @@
 	}
 
 /***/ },
-/* 11 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(6)();
@@ -3437,1533 +3331,649 @@
 	
 	
 	// module
-	exports.push([module.id, "\nh2{\n    color: red;\n}\n", "", {"version":3,"sources":["/./public/javascripts/vue_demo.vue?1325c434"],"names":[],"mappings":";AACA;IACA,WAAA;CACA","file":"vue_demo.vue","sourcesContent":["<style>\n     h2{\n         color: red;\n     }\n </style>\n <template>\n     <h2>hello, {{name}}</h2>\n     <input v-model=\"name\">\n     <ul>\n         <li v-for=\"item in items\">\n             {{ item.message }}\n         </li>\n     </ul>\n </template>\n <script>\n     //  构造弹窗组件\n     module.exports = {\n         data: function(){\n             return {\n                 name: \"western-ranger\",\n                 items: 'ajax_text'\n             };\n         },\n         asyncData: function (resolve, reject) {\n             this.$http.post('/comment', {id:1}, {\n                 headers: {\n                     \"X-Requested-With\": \"XMLHttpRequest\"\n                 },\n                 emulateJSON: true//以form data形式\n             }).then(function(response) {\n                 var data = response.data;\n                 resolve({\n                     items: data.demoArr\n                 });\n             }, function(response) {\n                 // handle error\n             });\n         },\n     };\n </script>"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "\n.vue_demo{\n    position:fixed;\n    top:30%;\n    left:50%;\n    transform:translate(-50%,-50%);\n    -webkit-transform: translate(-50%,-50%);\n    background:#e5e5e5;\n    width:4rem;\n    margin:0.6rem auto;\n    text-align:center;\n    color:#ff9da4;\n    font-size:0.3rem;\n}\n.content{\n    padding:0.5rem 0;\n    text-align:center;\n}\n.btn-comb{\n    overflow: hidden;\n    background:#f8f8f8;\n}\n.left,.right{\n    width:50%;\n    padding:0.2rem 0;\n    text-align: center;\n    color:#000;\n    font-size:0.28rem;\n    float:left;\n}\n", "", {"version":3,"sources":["/./public/javascripts/confirm_v2.vue?73d7c222"],"names":[],"mappings":";AACA;IACA,eAAA;IACA,QAAA;IACA,SAAA;IACA,+BAAA;IACA,wCAAA;IACA,mBAAA;IACA,WAAA;IACA,mBAAA;IACA,kBAAA;IACA,cAAA;IACA,iBAAA;CACA;AACA;IACA,iBAAA;IACA,kBAAA;CACA;AACA;IACA,iBAAA;IACA,mBAAA;CACA;AACA;IACA,UAAA;IACA,iBAAA;IACA,mBAAA;IACA,WAAA;IACA,kBAAA;IACA,WAAA;CACA","file":"confirm_v2.vue","sourcesContent":["<style>\n    .vue_demo{\n        position:fixed;\n        top:30%;\n        left:50%;\n        transform:translate(-50%,-50%);\n        -webkit-transform: translate(-50%,-50%);\n        background:#e5e5e5;\n        width:4rem;\n        margin:0.6rem auto;\n        text-align:center;\n        color:#ff9da4;\n        font-size:0.3rem;\n    }\n    .content{\n        padding:0.5rem 0;\n        text-align:center;\n    }\n    .btn-comb{\n        overflow: hidden;\n        background:#f8f8f8;\n    }\n    .left,.right{\n        width:50%;\n        padding:0.2rem 0;\n        text-align: center;\n        color:#000;\n        font-size:0.28rem;\n        float:left;\n    }\n</style>\n<template>\n    <div class=\"vue_demo\" v-if=\"confirm_info_chg.confirm_show\">\n        <div class=\"content {{confirm_info_chg.classs}}\">\n            {{confirm_info_chg.confirm_name}}\n        </div>\n        <div class=\"btn-comb\">\n            <div class=\"left\">取消</div>\n            <div class=\"right\" @click.stop=\"show_name\">确定</div>\n        </div>\n    </div>\n</template>\n<script>\n    var def_info = {\n        confirm_show:false,\n        confirm_name:'hello world!',\n        classs:'aaa'\n    };\n    module.exports = {\n        props:['confirm_info'],\n        computed:{\n            confirm_info_chg:function(){\n                var that = this;\n                that.confirm_info = Object.assign(def_info,that.confirm_info);\n                return that.confirm_info;\n            }\n        },\n        methods:{\n            show_name:function(){\n                alert(this.confirm_name);\n            }\n        }\n    }\n</script>"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
 
 /***/ },
-/* 12 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = {
-	    data: function data() {
-	        return {
-	            name: "western-ranger",
-	            items: 'ajax_text'
-	        };
-	    },
-	    asyncData: function asyncData(resolve, reject) {
-	        this.$http.post('/comment', { id: 1 }, {
-	            headers: {
-	                "X-Requested-With": "XMLHttpRequest"
-	            },
-	            emulateJSON: true }).then(function (response) {
-	            var data = response.data;
-	            resolve({
-	                items: data.demoArr
-	            });
-	        }, function (response) {});
-	    }
-	};
-
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	module.exports = "\n\n\n\n\n\n<h2>hello, {{name}}</h2>\n<input v-model=\"name\">\n<ul>\n    <li v-for=\"item in items\">\n        {{ item.message }}\n    </li>\n</ul>\n";
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-	module.exports = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<div class=\"ncf-confirm\">\n    <div class=\"conf-cont\">\n        <vue_demo></vue_demo>\n    </div>\n    <div class=\"conf-btn-grp\">\n        <div class=\"conf-cancel\" @click=\"doCancel\" v-if=\"canc\">取消</div>\n        <div class=\"conf-sure\" @click=\"doSure\" v-if=\"sure\">确定</div>\n    </div>\n</div>\n<div class=\"mask\" @click=\"clickHandler\"></div>\n";
-
-/***/ },
-/* 15 */
-/***/ function(module, exports) {
-
-	/*!
-	 * vue-resource v0.7.4
-	 * https://github.com/vuejs/vue-resource
-	 * Released under the MIT License.
-	 */
-	
-	'use strict';
-	
-	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
-	var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
-	    return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
-	} : function (obj) {
-	    return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
-	};
-	
-	/**
-	 * Utility functions.
-	 */
-	
-	var util = {};
-	var config = {};
-	var array = [];
-	var console = window.console;
-	function Util(Vue) {
-	    util = Vue.util;
-	    config = Vue.config;
-	}
-	
-	var isArray = Array.isArray;
-	
-	function warn(msg) {
-	    if (console && util.warn && (!config.silent || config.debug)) {
-	        console.warn('[VueResource warn]: ' + msg);
-	    }
-	}
-	
-	function error(msg) {
-	    if (console) {
-	        console.error(msg);
-	    }
-	}
-	
-	function nextTick(cb, ctx) {
-	    return util.nextTick(cb, ctx);
-	}
-	
-	function trim(str) {
-	    return str.replace(/^\s*|\s*$/g, '');
-	}
-	
-	function toLower(str) {
-	    return str ? str.toLowerCase() : '';
-	}
-	
-	function isString(val) {
-	    return typeof val === 'string';
-	}
-	
-	function isFunction(val) {
-	    return typeof val === 'function';
-	}
-	
-	function isObject(obj) {
-	    return obj !== null && (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object';
-	}
-	
-	function isPlainObject(obj) {
-	    return isObject(obj) && Object.getPrototypeOf(obj) == Object.prototype;
-	}
-	
-	function options(fn, obj, opts) {
-	
-	    opts = opts || {};
-	
-	    if (isFunction(opts)) {
-	        opts = opts.call(obj);
-	    }
-	
-	    return merge(fn.bind({ $vm: obj, $options: opts }), fn, { $options: opts });
-	}
-	
-	function each(obj, iterator) {
-	
-	    var i, key;
-	
-	    if (typeof obj.length == 'number') {
-	        for (i = 0; i < obj.length; i++) {
-	            iterator.call(obj[i], obj[i], i);
-	        }
-	    } else if (isObject(obj)) {
-	        for (key in obj) {
-	            if (obj.hasOwnProperty(key)) {
-	                iterator.call(obj[key], obj[key], key);
-	            }
-	        }
-	    }
-	
-	    return obj;
-	}
-	
-	function extend(target) {
-	
-	    var args = array.slice.call(arguments, 1);
-	
-	    args.forEach(function (arg) {
-	        _merge(target, arg);
-	    });
-	
-	    return target;
-	}
-	
-	function merge(target) {
-	
-	    var args = array.slice.call(arguments, 1);
-	
-	    args.forEach(function (arg) {
-	        _merge(target, arg, true);
-	    });
-	
-	    return target;
-	}
-	
-	function _merge(target, source, deep) {
-	    for (var key in source) {
-	        if (deep && (isPlainObject(source[key]) || isArray(source[key]))) {
-	            if (isPlainObject(source[key]) && !isPlainObject(target[key])) {
-	                target[key] = {};
-	            }
-	            if (isArray(source[key]) && !isArray(target[key])) {
-	                target[key] = [];
-	            }
-	            _merge(target[key], source[key], deep);
-	        } else if (source[key] !== undefined) {
-	            target[key] = source[key];
-	        }
-	    }
-	}
-	
-	function root(options, next) {
-	
-	    var url = next(options);
-	
-	    if (isString(options.root) && !url.match(/^(https?:)?\//)) {
-	        url = options.root + '/' + url;
-	    }
-	
-	    return url;
-	}
-	
-	function query(options, next) {
-	
-	    var urlParams = Object.keys(Url.options.params),
-	        query = {},
-	        url = next(options);
-	
-	    each(options.params, function (value, key) {
-	        if (urlParams.indexOf(key) === -1) {
-	            query[key] = value;
-	        }
-	    });
-	
-	    query = Url.params(query);
-	
-	    if (query) {
-	        url += (url.indexOf('?') == -1 ? '?' : '&') + query;
-	    }
-	
-	    return url;
-	}
-	
-	function legacy(options, next) {
-	
-	    var variables = [],
-	        url = next(options);
-	
-	    url = url.replace(/(\/?):([a-z]\w*)/gi, function (match, slash, name) {
-	
-	        warn('The `:' + name + '` parameter syntax has been deprecated. Use the `{' + name + '}` syntax instead.');
-	
-	        if (options.params[name]) {
-	            variables.push(name);
-	            return slash + encodeUriSegment(options.params[name]);
-	        }
-	
-	        return '';
-	    });
-	
-	    variables.forEach(function (key) {
-	        delete options.params[key];
-	    });
-	
-	    return url;
-	}
-	
-	function encodeUriSegment(value) {
-	
-	    return encodeUriQuery(value, true).replace(/%26/gi, '&').replace(/%3D/gi, '=').replace(/%2B/gi, '+');
-	}
-	
-	function encodeUriQuery(value, spaces) {
-	
-	    return encodeURIComponent(value).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, spaces ? '%20' : '+');
-	}
-	
-	/**
-	 * URL Template v2.0.6 (https://github.com/bramstein/url-template)
-	 */
-	
-	function expand(url, params, variables) {
-	
-	    var tmpl = parse(url),
-	        expanded = tmpl.expand(params);
-	
-	    if (variables) {
-	        variables.push.apply(variables, tmpl.vars);
-	    }
-	
-	    return expanded;
-	}
-	
-	function parse(template) {
-	
-	    var operators = ['+', '#', '.', '/', ';', '?', '&'],
-	        variables = [];
-	
-	    return {
-	        vars: variables,
-	        expand: function expand(context) {
-	            return template.replace(/\{([^\{\}]+)\}|([^\{\}]+)/g, function (_, expression, literal) {
-	                if (expression) {
-	
-	                    var operator = null,
-	                        values = [];
-	
-	                    if (operators.indexOf(expression.charAt(0)) !== -1) {
-	                        operator = expression.charAt(0);
-	                        expression = expression.substr(1);
-	                    }
-	
-	                    expression.split(/,/g).forEach(function (variable) {
-	                        var tmp = /([^:\*]*)(?::(\d+)|(\*))?/.exec(variable);
-	                        values.push.apply(values, getValues(context, operator, tmp[1], tmp[2] || tmp[3]));
-	                        variables.push(tmp[1]);
-	                    });
-	
-	                    if (operator && operator !== '+') {
-	
-	                        var separator = ',';
-	
-	                        if (operator === '?') {
-	                            separator = '&';
-	                        } else if (operator !== '#') {
-	                            separator = operator;
-	                        }
-	
-	                        return (values.length !== 0 ? operator : '') + values.join(separator);
-	                    } else {
-	                        return values.join(',');
-	                    }
-	                } else {
-	                    return encodeReserved(literal);
-	                }
-	            });
-	        }
-	    };
-	}
-	
-	function getValues(context, operator, key, modifier) {
-	
-	    var value = context[key],
-	        result = [];
-	
-	    if (isDefined(value) && value !== '') {
-	        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-	            value = value.toString();
-	
-	            if (modifier && modifier !== '*') {
-	                value = value.substring(0, parseInt(modifier, 10));
-	            }
-	
-	            result.push(encodeValue(operator, value, isKeyOperator(operator) ? key : null));
-	        } else {
-	            if (modifier === '*') {
-	                if (Array.isArray(value)) {
-	                    value.filter(isDefined).forEach(function (value) {
-	                        result.push(encodeValue(operator, value, isKeyOperator(operator) ? key : null));
-	                    });
-	                } else {
-	                    Object.keys(value).forEach(function (k) {
-	                        if (isDefined(value[k])) {
-	                            result.push(encodeValue(operator, value[k], k));
-	                        }
-	                    });
-	                }
-	            } else {
-	                var tmp = [];
-	
-	                if (Array.isArray(value)) {
-	                    value.filter(isDefined).forEach(function (value) {
-	                        tmp.push(encodeValue(operator, value));
-	                    });
-	                } else {
-	                    Object.keys(value).forEach(function (k) {
-	                        if (isDefined(value[k])) {
-	                            tmp.push(encodeURIComponent(k));
-	                            tmp.push(encodeValue(operator, value[k].toString()));
-	                        }
-	                    });
-	                }
-	
-	                if (isKeyOperator(operator)) {
-	                    result.push(encodeURIComponent(key) + '=' + tmp.join(','));
-	                } else if (tmp.length !== 0) {
-	                    result.push(tmp.join(','));
-	                }
-	            }
-	        }
-	    } else {
-	        if (operator === ';') {
-	            result.push(encodeURIComponent(key));
-	        } else if (value === '' && (operator === '&' || operator === '?')) {
-	            result.push(encodeURIComponent(key) + '=');
-	        } else if (value === '') {
-	            result.push('');
-	        }
-	    }
-	
-	    return result;
-	}
-	
-	function isDefined(value) {
-	    return value !== undefined && value !== null;
-	}
-	
-	function isKeyOperator(operator) {
-	    return operator === ';' || operator === '&' || operator === '?';
-	}
-	
-	function encodeValue(operator, value, key) {
-	
-	    value = operator === '+' || operator === '#' ? encodeReserved(value) : encodeURIComponent(value);
-	
-	    if (key) {
-	        return encodeURIComponent(key) + '=' + value;
-	    } else {
-	        return value;
-	    }
-	}
-	
-	function encodeReserved(str) {
-	    return str.split(/(%[0-9A-Fa-f]{2})/g).map(function (part) {
-	        if (!/%[0-9A-Fa-f]/.test(part)) {
-	            part = encodeURI(part);
-	        }
-	        return part;
-	    }).join('');
-	}
-	
-	function template(options) {
-	
-	    var variables = [],
-	        url = expand(options.url, options.params, variables);
-	
-	    variables.forEach(function (key) {
-	        delete options.params[key];
-	    });
-	
-	    return url;
-	}
-	
-	/**
-	 * Service for URL templating.
-	 */
-	
-	var ie = document.documentMode;
-	var el = document.createElement('a');
-	
-	function Url(url, params) {
-	
-	    var self = this || {},
-	        options = url,
-	        transform;
-	
-	    if (isString(url)) {
-	        options = { url: url, params: params };
-	    }
-	
-	    options = merge({}, Url.options, self.$options, options);
-	
-	    Url.transforms.forEach(function (handler) {
-	        transform = factory(handler, transform, self.$vm);
-	    });
-	
-	    return transform(options);
-	}
-	
-	/**
-	 * Url options.
-	 */
-	
-	Url.options = {
-	    url: '',
-	    root: null,
-	    params: {}
-	};
-	
-	/**
-	 * Url transforms.
-	 */
-	
-	Url.transforms = [template, legacy, query, root];
-	
-	/**
-	 * Encodes a Url parameter string.
-	 *
-	 * @param {Object} obj
-	 */
-	
-	Url.params = function (obj) {
-	
-	    var params = [],
-	        escape = encodeURIComponent;
-	
-	    params.add = function (key, value) {
-	
-	        if (isFunction(value)) {
-	            value = value();
-	        }
-	
-	        if (value === null) {
-	            value = '';
-	        }
-	
-	        this.push(escape(key) + '=' + escape(value));
-	    };
-	
-	    serialize(params, obj);
-	
-	    return params.join('&').replace(/%20/g, '+');
-	};
-	
-	/**
-	 * Parse a URL and return its components.
-	 *
-	 * @param {String} url
-	 */
-	
-	Url.parse = function (url) {
-	
-	    if (ie) {
-	        el.href = url;
-	        url = el.href;
-	    }
-	
-	    el.href = url;
-	
-	    return {
-	        href: el.href,
-	        protocol: el.protocol ? el.protocol.replace(/:$/, '') : '',
-	        port: el.port,
-	        host: el.host,
-	        hostname: el.hostname,
-	        pathname: el.pathname.charAt(0) === '/' ? el.pathname : '/' + el.pathname,
-	        search: el.search ? el.search.replace(/^\?/, '') : '',
-	        hash: el.hash ? el.hash.replace(/^#/, '') : ''
-	    };
-	};
-	
-	function factory(handler, next, vm) {
-	    return function (options) {
-	        return handler.call(vm, options, next);
-	    };
-	}
-	
-	function serialize(params, obj, scope) {
-	
-	    var array = isArray(obj),
-	        plain = isPlainObject(obj),
-	        hash;
-	
-	    each(obj, function (value, key) {
-	
-	        hash = isObject(value) || isArray(value);
-	
-	        if (scope) {
-	            key = scope + '[' + (plain || hash ? key : '') + ']';
-	        }
-	
-	        if (!scope && array) {
-	            params.add(value.name, value.value);
-	        } else if (hash) {
-	            serialize(params, value, key);
-	        } else {
-	            params.add(key, value);
-	        }
-	    });
-	}
-	
-	/**
-	 * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
-	 */
-	
-	var RESOLVED = 0;
-	var REJECTED = 1;
-	var PENDING = 2;
-	
-	function Promise$2(executor) {
-	
-	    this.state = PENDING;
-	    this.value = undefined;
-	    this.deferred = [];
-	
-	    var promise = this;
-	
-	    try {
-	        executor(function (x) {
-	            promise.resolve(x);
-	        }, function (r) {
-	            promise.reject(r);
-	        });
-	    } catch (e) {
-	        promise.reject(e);
-	    }
-	}
-	
-	Promise$2.reject = function (r) {
-	    return new Promise$2(function (resolve, reject) {
-	        reject(r);
-	    });
-	};
-	
-	Promise$2.resolve = function (x) {
-	    return new Promise$2(function (resolve, reject) {
-	        resolve(x);
-	    });
-	};
-	
-	Promise$2.all = function all(iterable) {
-	    return new Promise$2(function (resolve, reject) {
-	        var count = 0,
-	            result = [];
-	
-	        if (iterable.length === 0) {
-	            resolve(result);
-	        }
-	
-	        function resolver(i) {
-	            return function (x) {
-	                result[i] = x;
-	                count += 1;
-	
-	                if (count === iterable.length) {
-	                    resolve(result);
-	                }
-	            };
-	        }
-	
-	        for (var i = 0; i < iterable.length; i += 1) {
-	            Promise$2.resolve(iterable[i]).then(resolver(i), reject);
-	        }
-	    });
-	};
-	
-	Promise$2.race = function race(iterable) {
-	    return new Promise$2(function (resolve, reject) {
-	        for (var i = 0; i < iterable.length; i += 1) {
-	            Promise$2.resolve(iterable[i]).then(resolve, reject);
-	        }
-	    });
-	};
-	
-	var p$1 = Promise$2.prototype;
-	
-	p$1.resolve = function resolve(x) {
-	    var promise = this;
-	
-	    if (promise.state === PENDING) {
-	        if (x === promise) {
-	            throw new TypeError('Promise settled with itself.');
-	        }
-	
-	        var called = false;
-	
-	        try {
-	            var then = x && x['then'];
-	
-	            if (x !== null && (typeof x === 'undefined' ? 'undefined' : _typeof(x)) === 'object' && typeof then === 'function') {
-	                then.call(x, function (x) {
-	                    if (!called) {
-	                        promise.resolve(x);
-	                    }
-	                    called = true;
-	                }, function (r) {
-	                    if (!called) {
-	                        promise.reject(r);
-	                    }
-	                    called = true;
-	                });
-	                return;
-	            }
-	        } catch (e) {
-	            if (!called) {
-	                promise.reject(e);
-	            }
-	            return;
-	        }
-	
-	        promise.state = RESOLVED;
-	        promise.value = x;
-	        promise.notify();
-	    }
-	};
-	
-	p$1.reject = function reject(reason) {
-	    var promise = this;
-	
-	    if (promise.state === PENDING) {
-	        if (reason === promise) {
-	            throw new TypeError('Promise settled with itself.');
-	        }
-	
-	        promise.state = REJECTED;
-	        promise.value = reason;
-	        promise.notify();
-	    }
-	};
-	
-	p$1.notify = function notify() {
-	    var promise = this;
-	
-	    nextTick(function () {
-	        if (promise.state !== PENDING) {
-	            while (promise.deferred.length) {
-	                var deferred = promise.deferred.shift(),
-	                    onResolved = deferred[0],
-	                    onRejected = deferred[1],
-	                    resolve = deferred[2],
-	                    reject = deferred[3];
-	
-	                try {
-	                    if (promise.state === RESOLVED) {
-	                        if (typeof onResolved === 'function') {
-	                            resolve(onResolved.call(undefined, promise.value));
-	                        } else {
-	                            resolve(promise.value);
-	                        }
-	                    } else if (promise.state === REJECTED) {
-	                        if (typeof onRejected === 'function') {
-	                            resolve(onRejected.call(undefined, promise.value));
-	                        } else {
-	                            reject(promise.value);
-	                        }
-	                    }
-	                } catch (e) {
-	                    reject(e);
-	                }
-	            }
-	        }
-	    });
-	};
-	
-	p$1.then = function then(onResolved, onRejected) {
-	    var promise = this;
-	
-	    return new Promise$2(function (resolve, reject) {
-	        promise.deferred.push([onResolved, onRejected, resolve, reject]);
-	        promise.notify();
-	    });
-	};
-	
-	p$1.catch = function (onRejected) {
-	    return this.then(undefined, onRejected);
-	};
-	
-	var PromiseObj = window.Promise || Promise$2;
-	
-	function Promise$1(executor, context) {
-	
-	    if (executor instanceof PromiseObj) {
-	        this.promise = executor;
-	    } else {
-	        this.promise = new PromiseObj(executor.bind(context));
-	    }
-	
-	    this.context = context;
-	}
-	
-	Promise$1.all = function (iterable, context) {
-	    return new Promise$1(PromiseObj.all(iterable), context);
-	};
-	
-	Promise$1.resolve = function (value, context) {
-	    return new Promise$1(PromiseObj.resolve(value), context);
-	};
-	
-	Promise$1.reject = function (reason, context) {
-	    return new Promise$1(PromiseObj.reject(reason), context);
-	};
-	
-	Promise$1.race = function (iterable, context) {
-	    return new Promise$1(PromiseObj.race(iterable), context);
-	};
-	
-	var p = Promise$1.prototype;
-	
-	p.bind = function (context) {
-	    this.context = context;
-	    return this;
-	};
-	
-	p.then = function (fulfilled, rejected) {
-	
-	    if (fulfilled && fulfilled.bind && this.context) {
-	        fulfilled = fulfilled.bind(this.context);
-	    }
-	
-	    if (rejected && rejected.bind && this.context) {
-	        rejected = rejected.bind(this.context);
-	    }
-	
-	    this.promise = this.promise.then(fulfilled, rejected);
-	
-	    return this;
-	};
-	
-	p.catch = function (rejected) {
-	
-	    if (rejected && rejected.bind && this.context) {
-	        rejected = rejected.bind(this.context);
-	    }
-	
-	    this.promise = this.promise.catch(rejected);
-	
-	    return this;
-	};
-	
-	p.finally = function (callback) {
-	
-	    return this.then(function (value) {
-	        callback.call(this);
-	        return value;
-	    }, function (reason) {
-	        callback.call(this);
-	        return PromiseObj.reject(reason);
-	    });
-	};
-	
-	p.success = function (callback) {
-	
-	    warn('The `success` method has been deprecated. Use the `then` method instead.');
-	
-	    return this.then(function (response) {
-	        return callback.call(this, response.data, response.status, response) || response;
-	    });
-	};
-	
-	p.error = function (callback) {
-	
-	    warn('The `error` method has been deprecated. Use the `catch` method instead.');
-	
-	    return this.catch(function (response) {
-	        return callback.call(this, response.data, response.status, response) || response;
-	    });
-	};
-	
-	p.always = function (callback) {
-	
-	    warn('The `always` method has been deprecated. Use the `finally` method instead.');
-	
-	    var cb = function cb(response) {
-	        return callback.call(this, response.data, response.status, response) || response;
-	    };
-	
-	    return this.then(cb, cb);
-	};
-	
-	function xdrClient(request) {
-	    return new Promise$1(function (resolve) {
-	
-	        var xdr = new XDomainRequest(),
-	            response = { request: request },
-	            handler;
-	
-	        request.cancel = function () {
-	            xdr.abort();
-	        };
-	
-	        xdr.open(request.method, Url(request), true);
-	
-	        handler = function handler(event) {
-	
-	            response.data = xdr.responseText;
-	            response.status = xdr.status;
-	            response.statusText = xdr.statusText || '';
-	
-	            resolve(response);
-	        };
-	
-	        xdr.timeout = 0;
-	        xdr.onload = handler;
-	        xdr.onabort = handler;
-	        xdr.onerror = handler;
-	        xdr.ontimeout = function () {};
-	        xdr.onprogress = function () {};
-	
-	        xdr.send(request.data);
-	    });
-	}
-	
-	var originUrl = Url.parse(location.href);
-	var supportCors = 'withCredentials' in new XMLHttpRequest();
-	
-	var exports$1 = {
-	    request: function request(_request) {
-	
-	        if (_request.crossOrigin === null) {
-	            _request.crossOrigin = crossOrigin(_request);
-	        }
-	
-	        if (_request.crossOrigin) {
-	
-	            if (!supportCors) {
-	                _request.client = xdrClient;
-	            }
-	
-	            _request.emulateHTTP = false;
-	        }
-	
-	        return _request;
-	    }
-	};
-	
-	function crossOrigin(request) {
-	
-	    var requestUrl = Url.parse(Url(request));
-	
-	    return requestUrl.protocol !== originUrl.protocol || requestUrl.host !== originUrl.host;
-	}
-	
-	var exports$2 = {
-	    request: function request(_request) {
-	
-	        if (_request.emulateJSON && isPlainObject(_request.data)) {
-	            _request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-	            _request.data = Url.params(_request.data);
-	        }
-	
-	        if (isObject(_request.data) && /FormData/i.test(_request.data.toString())) {
-	            delete _request.headers['Content-Type'];
-	        }
-	
-	        if (isPlainObject(_request.data)) {
-	            _request.data = JSON.stringify(_request.data);
-	        }
-	
-	        return _request;
-	    },
-	    response: function response(_response) {
-	
-	        try {
-	            _response.data = JSON.parse(_response.data);
-	        } catch (e) {}
-	
-	        return _response;
-	    }
-	};
-	
-	function jsonpClient(request) {
-	    return new Promise$1(function (resolve) {
-	
-	        var callback = '_jsonp' + Math.random().toString(36).substr(2),
-	            response = { request: request, data: null },
-	            handler,
-	            script;
-	
-	        request.params[request.jsonp] = callback;
-	        request.cancel = function () {
-	            handler({ type: 'cancel' });
-	        };
-	
-	        script = document.createElement('script');
-	        script.src = Url(request);
-	        script.type = 'text/javascript';
-	        script.async = true;
-	
-	        window[callback] = function (data) {
-	            response.data = data;
-	        };
-	
-	        handler = function handler(event) {
-	
-	            if (event.type === 'load' && response.data !== null) {
-	                response.status = 200;
-	            } else if (event.type === 'error') {
-	                response.status = 404;
-	            } else {
-	                response.status = 0;
-	            }
-	
-	            resolve(response);
-	
-	            delete window[callback];
-	            document.body.removeChild(script);
-	        };
-	
-	        script.onload = handler;
-	        script.onerror = handler;
-	
-	        document.body.appendChild(script);
-	    });
-	}
-	
-	var exports$3 = {
-	    request: function request(_request) {
-	
-	        if (_request.method == 'JSONP') {
-	            _request.client = jsonpClient;
-	        }
-	
-	        return _request;
-	    }
-	};
-	
-	var exports$4 = {
-	    request: function request(_request) {
-	
-	        if (isFunction(_request.beforeSend)) {
-	            _request.beforeSend.call(this, _request);
-	        }
-	
-	        return _request;
-	    }
-	};
-	
-	/**
-	 * HTTP method override Interceptor.
-	 */
-	
-	var exports$5 = {
-	    request: function request(_request) {
-	
-	        if (_request.emulateHTTP && /^(PUT|PATCH|DELETE)$/i.test(_request.method)) {
-	            _request.headers['X-HTTP-Method-Override'] = _request.method;
-	            _request.method = 'POST';
-	        }
-	
-	        return _request;
-	    }
-	};
-	
-	var exports$6 = {
-	    request: function request(_request) {
-	
-	        _request.method = _request.method.toUpperCase();
-	        _request.headers = extend({}, Http.headers.common, !_request.crossOrigin ? Http.headers.custom : {}, Http.headers[_request.method.toLowerCase()], _request.headers);
-	
-	        if (isPlainObject(_request.data) && /^(GET|JSONP)$/i.test(_request.method)) {
-	            extend(_request.params, _request.data);
-	            delete _request.data;
-	        }
-	
-	        return _request;
-	    }
-	};
-	
-	/**
-	 * Timeout Interceptor.
-	 */
-	
-	var exports$7 = function exports() {
-	
-	    var timeout;
-	
-	    return {
-	        request: function request(_request) {
-	
-	            if (_request.timeout) {
-	                timeout = setTimeout(function () {
-	                    _request.cancel();
-	                }, _request.timeout);
-	            }
-	
-	            return _request;
-	        },
-	        response: function response(_response) {
-	
-	            clearTimeout(timeout);
-	
-	            return _response;
-	        }
-	    };
-	};
-	
-	function interceptor(handler, vm) {
-	
-	    return function (client) {
-	
-	        if (isFunction(handler)) {
-	            handler = handler.call(vm, Promise$1);
-	        }
-	
-	        return function (request) {
-	
-	            if (isFunction(handler.request)) {
-	                request = handler.request.call(vm, request);
-	            }
-	
-	            return when(request, function (request) {
-	                return when(client(request), function (response) {
-	
-	                    if (isFunction(handler.response)) {
-	                        response = handler.response.call(vm, response);
-	                    }
-	
-	                    return response;
-	                });
-	            });
-	        };
-	    };
-	}
-	
-	function when(value, fulfilled, rejected) {
-	
-	    var promise = Promise$1.resolve(value);
-	
-	    if (arguments.length < 2) {
-	        return promise;
-	    }
-	
-	    return promise.then(fulfilled, rejected);
-	}
-	
-	function xhrClient(request) {
-	    return new Promise$1(function (resolve) {
-	
-	        var xhr = new XMLHttpRequest(),
-	            response = { request: request },
-	            handler;
-	
-	        request.cancel = function () {
-	            xhr.abort();
-	        };
-	
-	        xhr.open(request.method, Url(request), true);
-	
-	        handler = function handler(event) {
-	
-	            response.data = 'response' in xhr ? xhr.response : xhr.responseText;
-	            response.status = xhr.status === 1223 ? 204 : xhr.status; // IE9 status bug
-	            response.statusText = trim(xhr.statusText || '');
-	            response.headers = xhr.getAllResponseHeaders();
-	
-	            resolve(response);
-	        };
-	
-	        xhr.timeout = 0;
-	        xhr.onload = handler;
-	        xhr.onabort = handler;
-	        xhr.onerror = handler;
-	        xhr.ontimeout = function () {};
-	        xhr.onprogress = function () {};
-	
-	        if (isPlainObject(request.xhr)) {
-	            extend(xhr, request.xhr);
-	        }
-	
-	        if (isPlainObject(request.upload)) {
-	            extend(xhr.upload, request.upload);
-	        }
-	
-	        each(request.headers || {}, function (value, header) {
-	            xhr.setRequestHeader(header, value);
-	        });
-	
-	        xhr.send(request.data);
-	    });
-	}
-	
-	function Client(request) {
-	
-	    var response = (request.client || xhrClient)(request);
-	
-	    return Promise$1.resolve(response).then(function (response) {
-	
-	        if (response.headers) {
-	
-	            var headers = parseHeaders(response.headers);
-	
-	            response.headers = function (name) {
-	
-	                if (name) {
-	                    return headers[toLower(name)];
-	                }
-	
-	                return headers;
-	            };
-	        }
-	
-	        response.ok = response.status >= 200 && response.status < 300;
-	
-	        return response;
-	    });
-	}
-	
-	function parseHeaders(str) {
-	
-	    var headers = {},
-	        value,
-	        name,
-	        i;
-	
-	    if (isString(str)) {
-	        each(str.split('\n'), function (row) {
-	
-	            i = row.indexOf(':');
-	            name = trim(toLower(row.slice(0, i)));
-	            value = trim(row.slice(i + 1));
-	
-	            if (headers[name]) {
-	
-	                if (isArray(headers[name])) {
-	                    headers[name].push(value);
-	                } else {
-	                    headers[name] = [headers[name], value];
-	                }
-	            } else {
-	
-	                headers[name] = value;
-	            }
-	        });
-	    }
-	
-	    return headers;
-	}
-	
-	/**
-	 * Service for sending network requests.
-	 */
-	
-	var jsonType = { 'Content-Type': 'application/json' };
-	
-	function Http(url, options) {
-	
-	    var self = this || {},
-	        client = Client,
-	        request,
-	        promise;
-	
-	    Http.interceptors.forEach(function (handler) {
-	        client = interceptor(handler, self.$vm)(client);
-	    });
-	
-	    options = isObject(url) ? url : extend({ url: url }, options);
-	    request = merge({}, Http.options, self.$options, options);
-	    promise = client(request).bind(self.$vm).then(function (response) {
-	
-	        return response.ok ? response : Promise$1.reject(response);
-	    }, function (response) {
-	
-	        if (response instanceof Error) {
-	            error(response);
-	        }
-	
-	        return Promise$1.reject(response);
-	    });
-	
-	    if (request.success) {
-	        promise.success(request.success);
-	    }
-	
-	    if (request.error) {
-	        promise.error(request.error);
-	    }
-	
-	    return promise;
-	}
-	
-	Http.options = {
-	    method: 'get',
-	    data: '',
-	    params: {},
-	    headers: {},
-	    xhr: null,
-	    upload: null,
-	    jsonp: 'callback',
-	    beforeSend: null,
-	    crossOrigin: null,
-	    emulateHTTP: false,
-	    emulateJSON: false,
-	    timeout: 0
-	};
-	
-	Http.headers = {
-	    put: jsonType,
-	    post: jsonType,
-	    patch: jsonType,
-	    delete: jsonType,
-	    common: { 'Accept': 'application/json, text/plain, */*' },
-	    custom: { 'X-Requested-With': 'XMLHttpRequest' }
-	};
-	
-	Http.interceptors = [exports$4, exports$7, exports$3, exports$5, exports$2, exports$6, exports$1];
-	
-	['get', 'put', 'post', 'patch', 'delete', 'jsonp'].forEach(function (method) {
-	
-	    Http[method] = function (url, data, success, options) {
-	
-	        if (isFunction(data)) {
-	            options = success;
-	            success = data;
-	            data = undefined;
-	        }
-	
-	        if (isObject(success)) {
-	            options = success;
-	            success = undefined;
-	        }
-	
-	        return this(url, extend({ method: method, data: data, success: success }, options));
-	    };
-	});
-	
-	function Resource(url, params, actions, options) {
-	
-	    var self = this || {},
-	        resource = {};
-	
-	    actions = extend({}, Resource.actions, actions);
-	
-	    each(actions, function (action, name) {
-	
-	        action = merge({ url: url, params: params || {} }, options, action);
-	
-	        resource[name] = function () {
-	            return (self.$http || Http)(opts(action, arguments));
-	        };
-	    });
-	
-	    return resource;
-	}
-	
-	function opts(action, args) {
-	
-	    var options = extend({}, action),
-	        params = {},
-	        data,
-	        success,
-	        error;
-	
-	    switch (args.length) {
-	
-	        case 4:
-	
-	            error = args[3];
-	            success = args[2];
-	
-	        case 3:
-	        case 2:
-	
-	            if (isFunction(args[1])) {
-	
-	                if (isFunction(args[0])) {
-	
-	                    success = args[0];
-	                    error = args[1];
-	
-	                    break;
-	                }
-	
-	                success = args[1];
-	                error = args[2];
-	            } else {
-	
-	                params = args[0];
-	                data = args[1];
-	                success = args[2];
-	
-	                break;
-	            }
-	
-	        case 1:
-	
-	            if (isFunction(args[0])) {
-	                success = args[0];
-	            } else if (/^(POST|PUT|PATCH)$/i.test(options.method)) {
-	                data = args[0];
-	            } else {
-	                params = args[0];
-	            }
-	
-	            break;
-	
-	        case 0:
-	
-	            break;
-	
-	        default:
-	
-	            throw 'Expected up to 4 arguments [params, data, success, error], got ' + args.length + ' arguments';
-	    }
-	
-	    options.data = data;
-	    options.params = extend({}, options.params, params);
-	
-	    if (success) {
-	        options.success = success;
-	    }
-	
-	    if (error) {
-	        options.error = error;
-	    }
-	
-	    return options;
-	}
-	
-	Resource.actions = {
-	
-	    get: { method: 'GET' },
-	    save: { method: 'POST' },
-	    query: { method: 'GET' },
-	    update: { method: 'PUT' },
-	    remove: { method: 'DELETE' },
-	    delete: { method: 'DELETE' }
-	
-	};
-	
-	function plugin(Vue) {
-	
-	    if (plugin.installed) {
-	        return;
-	    }
-	
-	    Util(Vue);
-	
-	    Vue.url = Url;
-	    Vue.http = Http;
-	    Vue.resource = Resource;
-	    Vue.Promise = Promise$1;
-	
-	    Object.defineProperties(Vue.prototype, {
-	
-	        $url: {
-	            get: function get() {
-	                return options(Vue.url, this, this.$options.url);
-	            }
-	        },
-	
-	        $http: {
-	            get: function get() {
-	                return options(Vue.http, this, this.$options.http);
-	            }
-	        },
-	
-	        $resource: {
-	            get: function get() {
-	                return Vue.resource.bind(this);
-	            }
-	        },
-	
-	        $promise: {
-	            get: function get() {
-	                var _this = this;
-	
-	                return function (executor) {
-	                    return new Vue.Promise(executor, _this);
-	                };
-	            }
-	        }
-	
-	    });
-	}
-	
-	if (typeof window !== 'undefined' && window.Vue) {
-	    window.Vue.use(plugin);
-	}
-	
-	module.exports = plugin;
-
-/***/ },
-/* 16 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+	'use strict';
+	
+	var _assign = __webpack_require__(23);
+	
+	var _assign2 = _interopRequireDefault(_assign);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var def_info = {
+	    confirm_show: false,
+	    confirm_name: 'hello world!',
+	    classs: 'aaa'
+	};
+	module.exports = {
+	    props: ['confirm_info'],
+	    computed: {
+	        confirm_info_chg: function confirm_info_chg() {
+	            var that = this;
+	            that.confirm_info = (0, _assign2.default)(def_info, that.confirm_info);
+	            return that.confirm_info;
+	        }
+	    },
+	    methods: {
+	        show_name: function show_name() {
+	            alert(this.confirm_name);
+	        }
+	    }
+	};
+
+/***/ },
+/* 22 */
+/***/ function(module, exports) {
+
+	module.exports = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<div class=\"vue_demo\" v-if=\"confirm_info_chg.confirm_show\">\n    <div class=\"content {{confirm_info_chg.classs}}\">\n        {{confirm_info_chg.confirm_name}}\n    </div>\n    <div class=\"btn-comb\">\n        <div class=\"left\">取消</div>\n        <div class=\"right\" @click.stop=\"show_name\">确定</div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	module.exports = { "default": __webpack_require__(24), __esModule: true };
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(25);
+	module.exports = __webpack_require__(28).Object.assign;
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// 19.1.3.1 Object.assign(target, source)
+	var $export = __webpack_require__(26);
+	
+	$export($export.S + $export.F, 'Object', { assign: __webpack_require__(41) });
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var global = __webpack_require__(27),
+	    core = __webpack_require__(28),
+	    ctx = __webpack_require__(29),
+	    hide = __webpack_require__(31),
+	    PROTOTYPE = 'prototype';
+	
+	var $export = function $export(type, name, source) {
+	  var IS_FORCED = type & $export.F,
+	      IS_GLOBAL = type & $export.G,
+	      IS_STATIC = type & $export.S,
+	      IS_PROTO = type & $export.P,
+	      IS_BIND = type & $export.B,
+	      IS_WRAP = type & $export.W,
+	      exports = IS_GLOBAL ? core : core[name] || (core[name] = {}),
+	      expProto = exports[PROTOTYPE],
+	      target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE],
+	      key,
+	      own,
+	      out;
+	  if (IS_GLOBAL) source = name;
+	  for (key in source) {
+	    // contains in native
+	    own = !IS_FORCED && target && target[key] !== undefined;
+	    if (own && key in exports) continue;
+	    // export native or passed
+	    out = own ? target[key] : source[key];
+	    // prevent global pollution for namespaces
+	    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+	    // bind timers to global for call from export context
+	    : IS_BIND && own ? ctx(out, global)
+	    // wrap global constructors for prevent change them in library
+	    : IS_WRAP && target[key] == out ? function (C) {
+	      var F = function F(a, b, c) {
+	        if (this instanceof C) {
+	          switch (arguments.length) {
+	            case 0:
+	              return new C();
+	            case 1:
+	              return new C(a);
+	            case 2:
+	              return new C(a, b);
+	          }return new C(a, b, c);
+	        }return C.apply(this, arguments);
+	      };
+	      F[PROTOTYPE] = C[PROTOTYPE];
+	      return F;
+	      // make static versions for prototype methods
+	    }(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+	    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+	    if (IS_PROTO) {
+	      (exports.virtual || (exports.virtual = {}))[key] = out;
+	      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+	      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
+	    }
+	  }
+	};
+	// type bitmap
+	$export.F = 1; // forced
+	$export.G = 2; // global
+	$export.S = 4; // static
+	$export.P = 8; // proto
+	$export.B = 16; // bind
+	$export.W = 32; // wrap
+	$export.U = 64; // safe
+	$export.R = 128; // real proto method for `library`
+	module.exports = $export;
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+	var global = module.exports = typeof window != 'undefined' && window.Math == Math ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
+	if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var core = module.exports = { version: '2.4.0' };
+	if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// optional / simple context binding
+	var aFunction = __webpack_require__(30);
+	module.exports = function (fn, that, length) {
+	  aFunction(fn);
+	  if (that === undefined) return fn;
+	  switch (length) {
+	    case 1:
+	      return function (a) {
+	        return fn.call(that, a);
+	      };
+	    case 2:
+	      return function (a, b) {
+	        return fn.call(that, a, b);
+	      };
+	    case 3:
+	      return function (a, b, c) {
+	        return fn.call(that, a, b, c);
+	      };
+	  }
+	  return function () /* ...args */{
+	    return fn.apply(that, arguments);
+	  };
+	};
+
+/***/ },
+/* 30 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function (it) {
+	  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
+	  return it;
+	};
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var dP = __webpack_require__(32),
+	    createDesc = __webpack_require__(40);
+	module.exports = __webpack_require__(36) ? function (object, key, value) {
+	  return dP.f(object, key, createDesc(1, value));
+	} : function (object, key, value) {
+	  object[key] = value;
+	  return object;
+	};
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var anObject = __webpack_require__(33),
+	    IE8_DOM_DEFINE = __webpack_require__(35),
+	    toPrimitive = __webpack_require__(39),
+	    dP = Object.defineProperty;
+	
+	exports.f = __webpack_require__(36) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+	  anObject(O);
+	  P = toPrimitive(P, true);
+	  anObject(Attributes);
+	  if (IE8_DOM_DEFINE) try {
+	    return dP(O, P, Attributes);
+	  } catch (e) {/* empty */}
+	  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+	  if ('value' in Attributes) O[P] = Attributes.value;
+	  return O;
+	};
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var isObject = __webpack_require__(34);
+	module.exports = function (it) {
+	  if (!isObject(it)) throw TypeError(it + ' is not an object!');
+	  return it;
+	};
+
+/***/ },
+/* 34 */
+/***/ function(module, exports) {
+
+	'use strict';
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	(function () {
-	  var vue; // lazy bind
-	
-	  var asyncData = {
-	    created: function created() {
-	      if (!vue) {
-	        console.warn('[vue-async-data] not installed!');
-	        return;
-	      }
-	      if (this.$options.asyncData) {
-	        if (this._defineMeta) {
-	          // 0.12 compat
-	          this._defineMeta('$loadingAsyncData', true);
-	        } else {
-	          // ^1.0.0-alpha
-	          vue.util.defineReactive(this, '$loadingAsyncData', true);
-	        }
-	      }
-	    },
-	    compiled: function compiled() {
-	      this.reloadAsyncData();
-	    },
-	    methods: {
-	      reloadAsyncData: function reloadAsyncData() {
-	        var load = this.$options.asyncData;
-	        if (load) {
-	          var self = this;
-	          var resolve = function resolve(data) {
-	            if (data) {
-	              for (var key in data) {
-	                self.$set(key, data[key]);
-	              }
-	            }
-	            self.$loadingAsyncData = false;
-	            self.$emit('async-data');
-	          };
-	          var reject = function reject(reason) {
-	            var msg = '[vue] async data load failed';
-	            if (reason instanceof Error) {
-	              console.warn(msg);
-	              throw reason;
-	            } else {
-	              console.warn(msg + ': ' + reason);
-	            }
-	          };
-	          this.$loadingAsyncData = true;
-	          var res = load.call(this, resolve, reject);
-	          if (res && typeof res.then === 'function') {
-	            res.then(resolve, reject);
-	          }
-	        }
-	      }
-	    }
-	  };
-	
-	  var api = {
-	    mixin: asyncData,
-	    install: function install(Vue, options) {
-	      vue = Vue;
-	      Vue.options = Vue.util.mergeOptions(Vue.options, asyncData);
-	    }
-	  };
-	
-	  if (( false ? 'undefined' : _typeof(exports)) === 'object' && ( false ? 'undefined' : _typeof(module)) === 'object') {
-	    module.exports = api;
-	  } else if (true) {
-	    !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
-	      return api;
-	    }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	  } else if (typeof window !== 'undefined') {
-	    window.VueAsyncData = api;
-	  }
-	})();
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)(module)))
+	module.exports = function (it) {
+	  return (typeof it === 'undefined' ? 'undefined' : _typeof(it)) === 'object' ? it !== null : typeof it === 'function';
+	};
 
 /***/ },
-/* 17 */
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = !__webpack_require__(36) && !__webpack_require__(37)(function () {
+	  return Object.defineProperty(__webpack_require__(38)('div'), 'a', { get: function get() {
+	      return 7;
+	    } }).a != 7;
+	});
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// Thank's IE8 for his funny defineProperty
+	module.exports = !__webpack_require__(37)(function () {
+	  return Object.defineProperty({}, 'a', { get: function get() {
+	      return 7;
+	    } }).a != 7;
+	});
+
+/***/ },
+/* 37 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
-	module.exports = function (module) {
-		if (!module.webpackPolyfill) {
-			module.deprecate = function () {};
-			module.paths = [];
-			// module.parent = undefined by default
-			module.children = [];
-			module.webpackPolyfill = 1;
-		}
-		return module;
+	module.exports = function (exec) {
+	  try {
+	    return !!exec();
+	  } catch (e) {
+	    return true;
+	  }
+	};
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var isObject = __webpack_require__(34),
+	    document = __webpack_require__(27).document
+	// in old IE typeof document.createElement is 'object'
+	,
+	    is = isObject(document) && isObject(document.createElement);
+	module.exports = function (it) {
+	  return is ? document.createElement(it) : {};
+	};
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// 7.1.1 ToPrimitive(input [, PreferredType])
+	var isObject = __webpack_require__(34);
+	// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+	// and the second argument - flag - preferred type is a string
+	module.exports = function (it, S) {
+	  if (!isObject(it)) return it;
+	  var fn, val;
+	  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+	  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
+	  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+	  throw TypeError("Can't convert object to primitive value");
+	};
+
+/***/ },
+/* 40 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	module.exports = function (bitmap, value) {
+	  return {
+	    enumerable: !(bitmap & 1),
+	    configurable: !(bitmap & 2),
+	    writable: !(bitmap & 4),
+	    value: value
+	  };
+	};
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	// 19.1.2.1 Object.assign(target, source, ...)
+	
+	var getKeys = __webpack_require__(42),
+	    gOPS = __webpack_require__(57),
+	    pIE = __webpack_require__(58),
+	    toObject = __webpack_require__(59),
+	    IObject = __webpack_require__(46),
+	    $assign = Object.assign;
+	
+	// should work with symbols and should have deterministic property order (V8 bug)
+	module.exports = !$assign || __webpack_require__(37)(function () {
+	  var A = {},
+	      B = {},
+	      S = Symbol(),
+	      K = 'abcdefghijklmnopqrst';
+	  A[S] = 7;
+	  K.split('').forEach(function (k) {
+	    B[k] = k;
+	  });
+	  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
+	}) ? function assign(target, source) {
+	  // eslint-disable-line no-unused-vars
+	  var T = toObject(target),
+	      aLen = arguments.length,
+	      index = 1,
+	      getSymbols = gOPS.f,
+	      isEnum = pIE.f;
+	  while (aLen > index) {
+	    var S = IObject(arguments[index++]),
+	        keys = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S),
+	        length = keys.length,
+	        j = 0,
+	        key;
+	    while (length > j) {
+	      if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
+	    }
+	  }return T;
+	} : $assign;
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+	var $keys = __webpack_require__(43),
+	    enumBugKeys = __webpack_require__(56);
+	
+	module.exports = Object.keys || function keys(O) {
+	  return $keys(O, enumBugKeys);
+	};
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var has = __webpack_require__(44),
+	    toIObject = __webpack_require__(45),
+	    arrayIndexOf = __webpack_require__(49)(false),
+	    IE_PROTO = __webpack_require__(53)('IE_PROTO');
+	
+	module.exports = function (object, names) {
+	  var O = toIObject(object),
+	      i = 0,
+	      result = [],
+	      key;
+	  for (key in O) {
+	    if (key != IE_PROTO) has(O, key) && result.push(key);
+	  } // Don't enum bug & hidden keys
+	  while (names.length > i) {
+	    if (has(O, key = names[i++])) {
+	      ~arrayIndexOf(result, key) || result.push(key);
+	    }
+	  }return result;
+	};
+
+/***/ },
+/* 44 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var hasOwnProperty = {}.hasOwnProperty;
+	module.exports = function (it, key) {
+	  return hasOwnProperty.call(it, key);
+	};
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// to indexed object, toObject with fallback for non-array-like ES3 strings
+	var IObject = __webpack_require__(46),
+	    defined = __webpack_require__(48);
+	module.exports = function (it) {
+	  return IObject(defined(it));
+	};
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// fallback for non-array-like ES3 and non-enumerable old V8 strings
+	var cof = __webpack_require__(47);
+	module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+	  return cof(it) == 'String' ? it.split('') : Object(it);
+	};
+
+/***/ },
+/* 47 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var toString = {}.toString;
+	
+	module.exports = function (it) {
+	  return toString.call(it).slice(8, -1);
+	};
+
+/***/ },
+/* 48 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	// 7.2.1 RequireObjectCoercible(argument)
+	module.exports = function (it) {
+	  if (it == undefined) throw TypeError("Can't call method on  " + it);
+	  return it;
+	};
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// false -> Array#indexOf
+	// true  -> Array#includes
+	var toIObject = __webpack_require__(45),
+	    toLength = __webpack_require__(50),
+	    toIndex = __webpack_require__(52);
+	module.exports = function (IS_INCLUDES) {
+	  return function ($this, el, fromIndex) {
+	    var O = toIObject($this),
+	        length = toLength(O.length),
+	        index = toIndex(fromIndex, length),
+	        value;
+	    // Array#includes uses SameValueZero equality algorithm
+	    if (IS_INCLUDES && el != el) while (length > index) {
+	      value = O[index++];
+	      if (value != value) return true;
+	      // Array#toIndex ignores holes, Array#includes - not
+	    } else for (; length > index; index++) {
+	        if (IS_INCLUDES || index in O) {
+	          if (O[index] === el) return IS_INCLUDES || index || 0;
+	        }
+	      }return !IS_INCLUDES && -1;
+	  };
+	};
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// 7.1.15 ToLength
+	var toInteger = __webpack_require__(51),
+	    min = Math.min;
+	module.exports = function (it) {
+	  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+	};
+
+/***/ },
+/* 51 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	// 7.1.4 ToInteger
+	var ceil = Math.ceil,
+	    floor = Math.floor;
+	module.exports = function (it) {
+	  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+	};
+
+/***/ },
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var toInteger = __webpack_require__(51),
+	    max = Math.max,
+	    min = Math.min;
+	module.exports = function (index, length) {
+	  index = toInteger(index);
+	  return index < 0 ? max(index + length, 0) : min(index, length);
+	};
+
+/***/ },
+/* 53 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var shared = __webpack_require__(54)('keys'),
+	    uid = __webpack_require__(55);
+	module.exports = function (key) {
+	  return shared[key] || (shared[key] = uid(key));
+	};
+
+/***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var global = __webpack_require__(27),
+	    SHARED = '__core-js_shared__',
+	    store = global[SHARED] || (global[SHARED] = {});
+	module.exports = function (key) {
+	  return store[key] || (store[key] = {});
+	};
+
+/***/ },
+/* 55 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var id = 0,
+	    px = Math.random();
+	module.exports = function (key) {
+	  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+	};
+
+/***/ },
+/* 56 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	// IE 8- don't enum bug keys
+	module.exports = 'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'.split(',');
+
+/***/ },
+/* 57 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	exports.f = Object.getOwnPropertySymbols;
+
+/***/ },
+/* 58 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	exports.f = {}.propertyIsEnumerable;
+
+/***/ },
+/* 59 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// 7.1.13 ToObject(argument)
+	var defined = __webpack_require__(48);
+	module.exports = function (it) {
+	  return Object(defined(it));
 	};
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=vuecomp.js.map

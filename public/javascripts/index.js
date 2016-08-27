@@ -12,7 +12,7 @@ Vue.use(vueResource);
 Vue.use(VueAsyncData);
 
 
-let cl111 = new Vue({
+let $vm = new Vue({
     el: 'body',// 依附对象
     data: {
         name: '点击',

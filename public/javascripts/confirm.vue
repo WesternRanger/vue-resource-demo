@@ -64,11 +64,11 @@
             <vue_demo></vue_demo>
         </div>
         <div class="conf-btn-grp">
-            <div class="conf-cancel" v-on:click="doCancel" v-if="canc">取消</div>
-            <div class="conf-sure" v-on:click="doSure" v-if="sure">确定</div>
+            <div class="conf-cancel" @click="doCancel" v-if="canc">取消</div>
+            <div class="conf-sure" @click="doSure" v-if="sure">确定</div>
         </div>
     </div>
-    <div class="mask" v-on:click="clickHandler"></div>
+    <div class="mask" @click="clickHandler"></div>
 </template>
 <script>
     var diyBox = require('./vue_demo.vue');//定义弹框内容
